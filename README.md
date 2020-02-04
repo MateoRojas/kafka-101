@@ -6,9 +6,16 @@ Kafka:
 - Highly Available
 - Scalable
 - Many Consumers
+- Many Producers
 
 Open source, distributed message streaming platform
 A set of components (deployables/libraries/APIs)
+
+### Publish/Subscribe pattern
+
+![alt text](./pubsub.png)
+
+> Change to something more generic
 
 Core Kafka APIs:
 - Producer API: publish a record to a topic.
@@ -17,20 +24,41 @@ Core Kafka APIs:
 - Connector API: allows to build consumers and producers that bring data from existing sources (DB, S3, MQ, etc) into Kafka and delivers data from kafka topics into other systems
 
 ![alt text](./pepe.png)
-> This image is lacking Kafka Proxy and Zookeeper
+> This image is lacking Kafka Proxy and Zookeeper 
 
-Kafka cluster:
-Zookeeper?
-Brokers?
+
+Broker
+- A single Kafka server. The broker receives messages from producers, assigns offsets to them and commits the messages in disk. It also responds to fetch requests for partitions from consumers and send messages back.   
+
+Kafka cluster
+- 2 o more kafka brokers. One broker must be the cluster controller (Zookeeper)
+
+Zookeeper
+- 
+
+
 Key?
 
-- Kafka doesn't care at all about key/record/message type/schema. You can send it pure bytes if you wanted (AVRO, ProtoBuff)
+- Kafka doesn't care at all about key/record/message type/schema. You can send it pure bytes if you wanted (AVRO, ProtoBuff). Although is recommended some sort of structure. Json, XML. 
+
+What's a record/message?
+- A message is the unit of data within Kafka. 
+- Each record consists of a key, a value, and a timestamp.
+- For efficiency, messages are written into kafka in batches (collection of messages)
 
 What's a topic?
 - A topic is a category or feed name to which records/messages are published
+- Topics are additionally broken down into a number of partitions
 
-What's a record in Kafka?
-- Each record consists of a key, a value, and a timestamp.
+Partitions:
+> Partition image
+
+- Each partition is an ordered, immutable sequence of records that is continually appended to
+- The records in the partitions are each assigned a sequential id number called the offset that uniquely identifies each record within the partition.
+- Allow to distribute the data load/requests/storage across multiple brokers/servers
+- Act as the unit of parallelism
+- Each partition has one server which acts as the "leader" and zero or more servers which act as "followers". The leader handles all read and write requests for the partition while the followers passively replicate the leader. If the leader fails, one of the followers will automatically become the new leader. Each server acts as a leader for some of its partitions and a follower for others so load is well balanced within the cluster.
+
 
 What's the zookeeper? Why does kafka needs it?
 
@@ -38,6 +66,9 @@ What's the zookeeper? Why does kafka needs it?
 - The Kafka cluster stores streams of records in categories called topics.
 
 What's the retention period?
+- Durable storage of messages for some periof of time.
+- Configurable per topic either in time or disk size.
+- Topics can be set as log compacted. Keeping only the last message produced with a specific key.
 
 Publish and subscribe to streams of events
 Store events in a durable way
@@ -45,6 +76,8 @@ Process streams of events as they occur
 
 Replication:
 - Fault Tolerance
+- Only available in the same kafka cluster, not for multiple clusters.
+
 
 Consumer Group:
 - each record published to a topic is delivered to one consumer instance within each subscribing consumer group
@@ -56,12 +89,6 @@ Consumer Instance
 - each instance is the exclusive consumer of a "fair share" of partitions at any point in time.
 - each instance is assigned one or more partitions. A partition is not assigned to more than one instance
 
-Partitions:
-- Each partition is an ordered, immutable sequence of records that is continually appended to
-- The records in the partitions are each assigned a sequential id number called the offset that uniquely identifies each record within the partition.
-- Allow to distribute the data load/requests/storage across multiple brokers/servers
-- Act as the unit of parallelism
-- Each partition has one server which acts as the "leader" and zero or more servers which act as "followers". The leader handles all read and write requests for the partition while the followers passively replicate the leader. If the leader fails, one of the followers will automatically become the new leader. Each server acts as a leader for some of its partitions and a follower for others so load is well balanced within the cluster.
 
 Producer:
 - Publish records to one or more topics
@@ -88,3 +115,7 @@ Configure Java Producer
 - links
 Configure Java Consumer
 - links
+
+
+Bibliography 
+- Kafka: The definitive guide
