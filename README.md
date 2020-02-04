@@ -31,13 +31,15 @@ Broker
 - A single Kafka server. The broker receives messages from producers, assigns offsets to them and commits the messages in disk. It also responds to fetch requests for partitions from consumers and send messages back.   
 
 Kafka cluster
-- 2 o more kafka brokers. One broker must be the cluster controller (Zookeeper)
+- 2 o more kafka brokers. One broker must be the cluster controller
 
-Zookeeper
-- 
+Apache Zookeeper
+- To mantain the list of brokers that are currently members of a cluster. cluster metadata.
+- Management of the cluster's brokers.
 
 
-Key?
+Key
+- Message Id that helps to decide to which topic partition that message is published.
 
 - Kafka doesn't care at all about key/record/message type/schema. You can send it pure bytes if you wanted (AVRO, ProtoBuff). Although is recommended some sort of structure. Json, XML. 
 
@@ -59,6 +61,9 @@ Partitions:
 - Act as the unit of parallelism
 - Each partition has one server which acts as the "leader" and zero or more servers which act as "followers". The leader handles all read and write requests for the partition while the followers passively replicate the leader. If the leader fails, one of the followers will automatically become the new leader. Each server acts as a leader for some of its partitions and a follower for others so load is well balanced within the cluster.
 
+Offset:
+-  sequential id number that uniquely identifies each record within the partition.
+
 
 What's the zookeeper? Why does kafka needs it?
 
@@ -66,7 +71,7 @@ What's the zookeeper? Why does kafka needs it?
 - The Kafka cluster stores streams of records in categories called topics.
 
 What's the retention period?
-- Durable storage of messages for some periof of time.
+- Durable storage of messages for some period of time or capacity.
 - Configurable per topic either in time or disk size.
 - Topics can be set as log compacted. Keeping only the last message produced with a specific key.
 
@@ -75,6 +80,7 @@ Store events in a durable way
 Process streams of events as they occur
 
 Replication:
+- Makes sure that you have a specific number of replicas for a record among the brokers
 - Fault Tolerance
 - Only available in the same kafka cluster, not for multiple clusters.
 
@@ -98,8 +104,7 @@ Producer:
 What happens if you add one more partition to an already created topic?
 - You should never do this because the message order is lost
 
-Offset:
--  sequential id number that uniquely identifies each record within the partition.
+
 
 Offset Commits
 
