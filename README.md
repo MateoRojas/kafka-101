@@ -44,49 +44,45 @@ Monitors and save metadata about kafka cluster, helps broker controller to manag
 - Each record consists of a key, a value, headers and a timestamp.
 - For efficiency, messages are written into kafka in batches (collection of messages)
 
-#### Key
-- Message id that helps to decide to which topic partition that message is published.
-- Kafka doesn't care at all about key/record/message type/schema. You can send it pure bytes if you wanted (AVRO, ProtoBuff). Although some sort of structure is recommended: Json, XML.
+    #### Key
+    - Message id that helps to decide to which topic partition that message is published.
+    - Kafka doesn't care at all about key/record/message type/schema. You can send it pure bytes if you wanted (AVRO, ProtoBuff). Although some sort of structure is recommended: Json, XML.
 
 ### What's a topic?
 - A topic is a category or feed name to which records/messages/events are published
 - Topics are additionally broken down into a number of partitions
 
-#### Partitions:
-- Each partition is an ordered, immutable sequence of records that is continually appended to
-- The records in the partitions are each assigned a sequential id number called the offset that uniquely identifies each record within the partition.
-- Allow to distribute the data load/requests/storage across multiple brokers/servers
-- Act as the unit of parallelism
-- Each partition has one server which acts as the "leader" and zero or more servers which act as "followers". The leader handles all read and write requests for the partition while the followers passively replicate the leader. If the leader fails, one of the followers will automatically become the new leader. Each server acts as a leader for some of its partitions and a follower for others so load is well balanced within the cluster.
+    #### Partitions:
+    - Each partition is an ordered, immutable sequence of records that is continually appended to
+    - The records in the partitions are each assigned a sequential id number called the offset that uniquely identifies each record within the partition.
+    - Allow to distribute the data load/requests/storage across multiple brokers/servers
+    - Act as the unit of parallelism
+    - Each partition has one server which acts as the "leader" and zero or more servers which act as "followers". The leader handles all read and write requests for the partition while the followers passively replicate the leader. If the leader fails, one of the followers will automatically become the new leader. Each server acts as a leader for some of its partitions and a follower for others so load is well balanced within the cluster.
 
-### Offset:
--  Sequential id number that uniquely identifies each record within the partition.
+    #### Offset:
+    -  Sequential id number that uniquely identifies each record within the partition.
+    
+    #### Retention period:
+    - Durable storage of messages for some period of time or capacity.
+    - Configurable per topic either in time or disk size.
+    - Topics can be set as log compacted. Keeping only the last message produced with a specific key.
 
-### Retention period
-- Durable storage of messages for some period of time or capacity.
-- Configurable per topic either in time or disk size.
-- Topics can be set as log compacted. Keeping only the last message produced with a specific key.
-
-Publish and subscribe to streams of events
-Store events in a durable way
-Process streams of events as they occur
-
-### Replication:
-- Makes sure that you have a specific number of replicas for a record among the brokers
-- Fault Tolerance
-- Only available in the same kafka cluster, not for multiple clusters.
+    #### Replication:
+    - Makes sure that you have a specific number of replicas for a record among the brokers
+    - Fault Tolerance
+    - Only available in the same kafka cluster, not for multiple clusters.
 
 ### Consumer Group:
 - Each record published to a topic is delivered to one consumer instance within each subscribing consumer group
 - If all the consumer instances have the same consumer group, then the records will effectively be load balanced over the consumer instances.
 - If all the consumer instances have different consumer groups, then each record will be broadcast to all the consumer processes.
 
-#### Consumer Instance
-- Each instance is the exclusive consumer of a "fair share" of partitions at any point in time.
-- Each instance is assigned one or more partitions. A partition is not assigned to more than one instance
+    #### Consumer Instance
+    - Each instance is the exclusive consumer of a "fair share" of partitions at any point in time.
+    - Each instance is assigned one or more partitions. A partition is not assigned to more than one instance
 
-### Rebalancing:
-- If new instances join the group they will take over some partitions from other members of the group; if an instance dies, its partitions will be distributed to the remaining instances.
+    #### Rebalancing:
+    - If new instances join the group they will take over some partitions from other members of the group; if an instance dies, its partitions will be distributed to the remaining instances.
 
 ### Producer:
 - Publish records to one or more topics
