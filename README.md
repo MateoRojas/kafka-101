@@ -106,11 +106,25 @@ Comandos Utiles del CLI?
 - Describir consumer groups?
 
 Docker compose to deploy Kafka cluster locally
+#Configurations
 
-Configure Java Producer
-- links
-Configure Java Consumer
-- links
+###[Producer Configs](https://kafka.apache.org/documentation/#producerconfigs)
+###[Consumer Configs](https://kafka.apache.org/documentation/#consumerconfigs)
+
+#Commands
+
+###Topics
+
+- `kafka-topics --bootstrap-server <broker-addresses> --list`
+- `kafka-topics --bootstrap-server <broker-addresses> --describe --topic <topic-name>`
+- `kafka-topics --bootstrap-server <broker-addresses> --create --topic <topic-name> --replication-factor <number-of-replicas> --partitions <number-of-partitions>`
+
+###Consumer Groups
+
+- `kafka-consumer-groups --bootstrap-server <broker-addresses> --list`
+- `kafka-consumer-groups --bootstrap-server <broker-addresses> --describe --group <group-id>`
+- `kafka-consumer-groups --bootstrap-server <broker-addresses> --describe --group <group-id> --members`
+- `kafka-consumer-groups --bootstrap-server <broker-addresses> --reset-offsets --group <group-id> --topic <topic-name> --to-earliest --execute`
 
 
 Bibliography 

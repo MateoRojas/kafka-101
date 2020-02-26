@@ -22,7 +22,9 @@ public class Consumer {
                     "Key: [" + record.key() + "] " +
                     "Value: [" + record.value() + "] " +
                     "Offset: [" + record.offset() + "] " +
-                    "Partition: [" + record.partition() + "]";
+                    "Partition: [" + record.partition() + "] " +
+                    "Timestamp: [" + record.timestamp() + "] " +
+                    "Headers: [" + record.headers() + "]";
                 System.out.println(message);
             });
         }
