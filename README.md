@@ -113,5 +113,13 @@ Monitors and save metadata about kafka cluster, helps broker controller to manag
 - `kafka-consumer-groups --bootstrap-server <broker-addresses> --describe --group <group-id> --members`
 - `kafka-consumer-groups --bootstrap-server <broker-addresses> --reset-offsets --group <group-id> --topic <topic-name> --to-earliest --execute`
 
+### Consumer
+
+- `kafka-console-consumer --bootstrap-server <broker-addresses> --topic <topic-name> --from-beginning`
+
+### Producer
+
+- `kafka-console-producer --broker-list {} --topic {}`
+
 Bibliography 
 - Kafka: The definitive guide
