@@ -106,6 +106,7 @@ Comandos Utiles del CLI?
 - Describir consumer groups?
 
 Docker compose to deploy Kafka cluster locally
+
 #Configurations
 
 ###[Producer Configs](https://kafka.apache.org/documentation/#producerconfigs)
@@ -125,7 +126,6 @@ Docker compose to deploy Kafka cluster locally
 - `kafka-consumer-groups --bootstrap-server <broker-addresses> --describe --group <group-id>`
 - `kafka-consumer-groups --bootstrap-server <broker-addresses> --describe --group <group-id> --members`
 - `kafka-consumer-groups --bootstrap-server <broker-addresses> --reset-offsets --group <group-id> --topic <topic-name> --to-earliest --execute`
-
 
 Bibliography 
 - Kafka: The definitive guide
