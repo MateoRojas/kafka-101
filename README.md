@@ -107,20 +107,20 @@ Comandos Utiles del CLI?
 
 Docker compose to deploy Kafka cluster locally
 
-#Configurations
+# Configurations
 
-###[Producer Configs](https://kafka.apache.org/documentation/#producerconfigs)
-###[Consumer Configs](https://kafka.apache.org/documentation/#consumerconfigs)
+### [Producer Configs](https://kafka.apache.org/documentation/#producerconfigs)
+### [Consumer Configs](https://kafka.apache.org/documentation/#consumerconfigs)
 
-#Commands
+# Commands
 
-###Topics
+### Topics
 
 - `kafka-topics --bootstrap-server <broker-addresses> --list`
 - `kafka-topics --bootstrap-server <broker-addresses> --describe --topic <topic-name>`
 - `kafka-topics --bootstrap-server <broker-addresses> --create --topic <topic-name> --replication-factor <number-of-replicas> --partitions <number-of-partitions>`
 
-###Consumer Groups
+### Consumer Groups
 
 - `kafka-consumer-groups --bootstrap-server <broker-addresses> --list`
 - `kafka-consumer-groups --bootstrap-server <broker-addresses> --describe --group <group-id>`
