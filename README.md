@@ -8,39 +8,36 @@ Kafka:
 - Many Consumers
 - Many Producers
 
-Open source, distributed message streaming platform
+Open source, distributed message streaming platform.
 A set of components (deployables/libraries/APIs)
 
-### Publish/Subscribe pattern
+### Publisher/Subscriber pattern
 
-![alt text](./pubsub.png)
-
-> Change to something more generic
+![alt text](pubsubpattern.png)
 
 Core Kafka APIs:
+
+![alt text](kafkaApis.png)
+
 - Producer API: publish a record to a topic.
 - Consumer API: subscribe to one or more topics and process their records
 - Streams API: helps to consume, transform and produce streams of record (lemonades)
-- Connector API: allows to build consumers and producers that bring data from existing sources (DB, S3, MQ, etc) into Kafka and delivers data from kafka topics into other systems
-
-![alt text](./pepe.png)
-> This image is lacking Kafka Proxy and Zookeeper 
-
+- Connector API: allows to build consumers and producers that bring data from existing sources (DB, S3, MQ, etc) 
+into Kafka and delivers data from kafka topics into other systems
+- REST API: admin tasks and integration with sources with no support yet
 
 Broker
 - A single Kafka server. The broker receives messages from producers, assigns offsets to them and commits the messages in disk. It also responds to fetch requests for partitions from consumers and send messages back.   
 
 Kafka cluster
-- 2 o more kafka brokers. One broker must be the cluster controller
+- 1 o more kafka brokers. One broker must be the cluster controller
 
 Apache Zookeeper
-- To mantain the list of brokers that are currently members of a cluster. cluster metadata.
-- Management of the cluster's brokers.
+- Monitors and save metadata about kafka cluster, helps broker controller to manage brokers.
 
 
 Key
 - Message Id that helps to decide to which topic partition that message is published.
-
 - Kafka doesn't care at all about key/record/message type/schema. You can send it pure bytes if you wanted (AVRO, ProtoBuff). Although is recommended some sort of structure. Json, XML. 
 
 What's a record/message?
@@ -53,7 +50,6 @@ What's a topic?
 - Topics are additionally broken down into a number of partitions
 
 Partitions:
-> Partition image
 
 - Each partition is an ordered, immutable sequence of records that is continually appended to
 - The records in the partitions are each assigned a sequential id number called the offset that uniquely identifies each record within the partition.
@@ -63,7 +59,6 @@ Partitions:
 
 Offset:
 -  sequential id number that uniquely identifies each record within the partition.
-
 
 What's the zookeeper? Why does kafka needs it?
 
@@ -84,7 +79,6 @@ Replication:
 - Fault Tolerance
 - Only available in the same kafka cluster, not for multiple clusters.
 
-
 Consumer Group:
 - each record published to a topic is delivered to one consumer instance within each subscribing consumer group
 - If all the consumer instances have the same consumer group, then the records will effectively be load balanced over the consumer instances.
@@ -95,7 +89,6 @@ Consumer Instance
 - each instance is the exclusive consumer of a "fair share" of partitions at any point in time.
 - each instance is assigned one or more partitions. A partition is not assigned to more than one instance
 
-
 Producer:
 - Publish records to one or more topics
 - Responsible for choosing which record to assign to which partition within the topic
@@ -103,8 +96,6 @@ Producer:
 - By default it picks a partition based on the key
 What happens if you add one more partition to an already created topic?
 - You should never do this because the message order is lost
-
-
 
 Offset Commits
 
