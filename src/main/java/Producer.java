@@ -13,6 +13,8 @@ public class Producer {
         properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         final var producer = new KafkaProducer<String, String>(properties);
         final var record = new ProducerRecord<>("some-topic", "any-key", "any-value");
+        // Publish and subscribe to a new topic (create topic by CLI)
+        // Bonus: override timestamp, partition, and headers
         // Sync vs Async
         producer.send(record).get();
         System.out.println("---------> Record sent!");

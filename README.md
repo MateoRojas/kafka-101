@@ -1,4 +1,4 @@
-Kafka:
+# Kafka
 
 - Stream History
 - Scalable Consumption
@@ -11,15 +11,15 @@ Kafka:
 Open source, distributed message streaming platform.
 A set of components (deployables/libraries/APIs)
 
-### Publisher/Subscriber pattern
+# Publisher/Subscriber pattern
 
 ![alt text](pubsubpattern.png)
 
-Core Kafka APIs:
+# Core Kafka APIs
 
 ![alt text](kafkaApis.png)
 
-- Producer API: publish a record to a topic.
+- **Producer API** publish a record to a topic.
 - Consumer API: subscribe to one or more topics and process their records
 - Streams API: helps to consume, transform and produce streams of record (lemonades)
 - Connector API: allows to build consumers and producers that bring data from existing sources (DB, S3, MQ, etc) 
